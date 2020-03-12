@@ -1,0 +1,19 @@
+body {
+  background-image: url("../images/dymo.jpg.webp");
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.jumbotron {
+  background-color: 
+  #e9ecefd0;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-right:0;
+    padding-left:0;
+  }
+}

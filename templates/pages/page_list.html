@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block title %}All Pages{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">All Pages</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+{% if page_list %}
+  <ul>
+    {% for page in page_list %}
+      <li>
+        <a href="{% url 'page' page.slug %}">{{ page.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no pages yet.</p>
+  {% endif %}     
+{% endblock content %}

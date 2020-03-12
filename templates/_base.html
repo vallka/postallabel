@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>{% block title %}Cleanifiq{% endblock title %}</title>
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
+{% block css %}
+<!-- Bootstrap CSS -->
+<!-- link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" -->
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+</head>
+
+
+
+
+
+<body>
+
+{% block navbar %}
+<!-- Navbar -->
+<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+      <a href="{% url 'home' %}" class="navbar-brand">Postal Labels</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+
+      </div>
+    </div>
+</div>
+{% endblock navbar %}
+
+
+<div class="container" style="padding-top: 4rem;">
+
+{% block breadcrumb-holder %}
+    {% if False%}
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+    {% block breadcrumb %}
+    {% endblock breadcrumb %}
+    </ol>
+    {% endif %}
+{% endblock breadcrumb-holder %}
+
+<section>
+{% include '_messages.html' %}
+</section>
+
+  <div class="container">
+    <div class="jumbotron">
+        {% block content %}
+
+        <p>Default content...</p>
+        {% endblock content %}
+    </div>
+</div>
+
+
+  {% block footer %}
+  <!-- Footer -->
+    <footer id="footer">
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-12">
+            <p><a href="#">© Cleanifiq Ltd. 2020</a>.</p>
+        </div>
+        </div>
+
+    </footer>
+  {% endblock footer %}
+
+</div> <!-- container -->
+
+
+{% block modal %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modal-btn-action">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock modal %}
+
+{% block javascript %}
+<!-- Bootstrap JavaScript -->
+<script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" 
+    integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+  <!-- 3rd party JavaScript -->
+
+  <script src="https://kit.fontawesome.com/8abf12b995.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+  <!-- Project JS -->
+  <script src="{% static 'js/base.js' %}" async defer></script>
+
+  {% endblock javascript %}
+
+</body>
+</html>
