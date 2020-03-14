@@ -26,27 +26,39 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def putfile(request):
-    filename = str(uuid.uuid1()) + '.pdf'
+
+    filename = request.GET.get('filename',str(uuid.uuid1()) + '.pdf')
+
     f = open(os.path.join(settings.MEDIA_ROOT,filename)   ,'wb')
     f.write(request.body)
     f.close()
 
-    newfile = process_pdf(os.path.join(settings.MEDIA_ROOT,filename))
+    
+    import pprint
+    print('*GET*')
+    pprint.pprint(request.GET)
+    print('*POST*')
+    pprint.pprint(request.POST)
+
+    if not settings.LOCAL:
+        newfile = process_pdf(os.path.join(settings.MEDIA_ROOT,filename))
+        return HttpResponse(os.path.join(settings.MEDIA_URL,filename+'-dymo.pdf'))
+    else:
+        return HttpResponse(os.path.join(settings.MEDIA_URL,filename))
 
 
-    return HttpResponse(os.path.join(settings.MEDIA_URL,filename+'-dymo.pdf'))
-
-
-from pdf2image import convert_from_path, convert_from_bytes
-
-from pdf2image.exceptions import (
-    PDFInfoNotInstalledError,
-    PDFPageCountError,
-    PDFSyntaxError
-)
 
 
 def process_pdf(file):
+
+    from pdf2image import convert_from_path, convert_from_bytes
+
+    from pdf2image.exceptions import (
+        PDFInfoNotInstalledError,
+        PDFPageCountError,
+        PDFSyntaxError
+    )
+
 
     images = convert_from_path(file)
 

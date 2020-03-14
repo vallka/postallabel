@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys    
+# Determine if in Production or Development
+if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
+    LOCAL = True 
+else:
+    LOCAL = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -129,12 +135,14 @@ STATICFILES_DIRS = [
 ]
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/gellifiquepdf/postallabel/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/gellifiquepdf/postallabel/static'
 STATIC_URL = '/static/'
 
-#MEDIA_ROOT = 'media'
+if LOCAL:
+    MEDIA_ROOT = 'media'
+else:
+    MEDIA_ROOT = '/home/gellifiquepdf/postallabel/media'
 
 
 INTERNAL_IPS = ['127.0.0.1']

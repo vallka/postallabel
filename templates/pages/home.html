@@ -20,12 +20,13 @@
     <file-upload
       ref="upload"
       v-model="files"
-      post-action="/post.method/"
+      post-action="/put.method/"
       put-action="/put.method/"
       @input-file="inputFile"
       @input-filter="inputFilter"
       :multiple="true"
       :drop="true"
+      :data="{filename: filename}"
     >
     <div>
       <button class="btn btn-primary">
@@ -33,8 +34,11 @@
       </button>
     </div>
     </file-upload>
+    <!--
+
     <button class="btn btn-success" v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
     <button class="btn btn-info" v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
+    -->
   </div>
 
 {% endblock content %}
@@ -53,7 +57,8 @@ new Vue({
   el: '#app',
   data: function () {
     return {
-      files: []
+      files: [],
+      filename: 'xxx'
     }
   },
   components: {
@@ -67,13 +72,44 @@ new Vue({
      * @return undefined
      */
     inputFile: function (newFile, oldFile) {
-      if (newFile && oldFile && !newFile.active && oldFile.active) {
-        // Get response data
-        console.log('response', newFile.response)
-        console.log(newFile.response)
-        if (newFile.xhr) {
-          //  Get the response status code
-          console.log('status', newFile.xhr.status)
+      if (newFile && oldFile) {
+       
+        if (newFile.active !== oldFile.active) {
+          console.log('Start upload', newFile.active, newFile)
+        }
+
+        // Upload progress
+        /*
+        if (newFile.progress !== oldFile.progress) {
+          console.log('progress', newFile.progress, newFile)
+        }
+
+        // Upload error
+        if (newFile.error !== oldFile.error) {
+          console.log('error', newFile.error, newFile)
+        }
+
+        // Uploaded successfully
+        if (newFile.success !== oldFile.success) {
+          console.log('success', newFile.success, newFile)
+        }
+        */
+
+
+        if (!newFile.active && oldFile.active) {
+          // Get response data
+          console.log('response', newFile.response)
+          console.log(newFile.response)
+          if (newFile.xhr) {
+            //  Get the response status code
+            console.log('status', newFile.xhr.status)
+          }
+        }
+      }
+      // Automatic upload
+      if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+        if (!this.$refs.upload.active) {
+          this.$refs.upload.active = true
         }
       }
     },
@@ -99,6 +135,7 @@ new Vue({
       if (URL && URL.createObjectURL) {
         newFile.blob = URL.createObjectURL(newFile.file)
       }
+      newFile.data.filename = newFile.name
     }
   }
 });
