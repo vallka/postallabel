@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'debug_toolbar',
+    'rest_framework',
+
     'pages',
 ]
 
@@ -45,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -129,3 +133,5 @@ MEDIA_ROOT = '/home/gellifiquepdf/postallabel/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/gellifiquepdf/postallabel/static'
 STATIC_URL = '/static/'
+
+INTERNAL_IPS = ['127.0.0.1']
