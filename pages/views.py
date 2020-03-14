@@ -1,4 +1,5 @@
 import uuid
+import os
 from django.conf import settings
 
 from django.views.generic import TemplateView
