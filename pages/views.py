@@ -56,9 +56,6 @@ def process_pdf(file):
     return file+'-dymo.pdf'
 
 def doPage(image,input,typ):
-    if not hasattr(doPage, "counter"):
-        doPage.counter = 0  # it doesn't exist yet, so initialize it
-
     typs = {
         'dpd': {
             'cropBox' : (156,139,947,949),
@@ -95,8 +92,10 @@ def doPage(image,input,typ):
 
     print (image3.size)
 
-    image3.save(input+'-dymo.pdf', append=(doPage.counter!=0))
-    doPage.counter += 1
+    if os.path.isfile(input+'-dymo.pdf'):
+        image3.save(input+'-dymo.pdf', append=True)
+    else:    
+        image3.save(input+'-dymo.pdf', append=False)
 
 
 
