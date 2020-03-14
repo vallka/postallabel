@@ -134,4 +134,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/gellifiquepdf/postallabel/static'
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = 'media'
+
+
 INTERNAL_IPS = ['127.0.0.1']
