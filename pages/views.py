@@ -34,7 +34,7 @@ def putfile(request):
     newfile = process_pdf(os.path.join(settings.MEDIA_ROOT,filename))
 
 
-    return HttpResponse(os.path.join(settings.MEDIA_URL,'dymo-'+filename))
+    return HttpResponse(os.path.join(settings.MEDIA_URL,filename+'-dymo.pdf'))
 
 
 from pdf2image import convert_from_path, convert_from_bytes
@@ -53,7 +53,7 @@ def process_pdf(file):
     for i in images:
         doPage(i,file,'dpd')
 
-    return 'dymo-' + file
+    return file+'-dymo.pdf'
 
 def doPage(image,input,typ):
     if not hasattr(doPage, "counter"):
@@ -95,7 +95,7 @@ def doPage(image,input,typ):
 
     print (image3.size)
 
-    image3.save('dymo-' + input, append=(doPage.counter!=0))
+    image3.save(input+'-dymo.pdf', append=(doPage.counter!=0))
     doPage.counter += 1
 
 
