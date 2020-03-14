@@ -31,7 +31,8 @@ def putfile(request):
     f.write(request.body)
     f.close()
 
-    newfile = process_pdf(os.path.join(settings.MEDIA_ROOT,filename)):
+    newfile = process_pdf(os.path.join(settings.MEDIA_ROOT,filename))
+
 
     return HttpResponse(os.path.join(settings.MEDIA_URL,'dymo-'+filename))
 
