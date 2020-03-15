@@ -59,6 +59,9 @@ def process_pdf(file):
         PDFSyntaxError
     )
 
+    if os.path.isfile(file+'-dymo.pdf'):
+        os.remove(file+'-dymo.pdf')
+
 
     images = convert_from_path(file)
 
@@ -103,6 +106,8 @@ def doPage(image,input,typ):
     image3.paste(bot,(w+1,0))
 
     print (image3.size)
+
+    
 
     if os.path.isfile(input+'-dymo.pdf'):
         image3.save(input+'-dymo.pdf', append=True)
